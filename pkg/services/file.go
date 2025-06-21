@@ -643,6 +643,7 @@ func (a *apiService) FilesUpdateParts(ctx context.Context, req *api.FilePartsUpd
 	}
 
 	updatePayload.UpdatedAt = req.UpdatedAt
+	updatePayload.Encrypted = req.Encrypted.Or(false)
 
 	err := a.db.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Where("id = ?", params.ID).First(&file).Error; err != nil {
